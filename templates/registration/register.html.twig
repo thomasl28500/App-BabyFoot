@@ -31,8 +31,9 @@
                     label: 'J\'accepte les termes et les conditions d\'utilisations.'
                 }) }}
 
-                <div class="d-flex align-items-center">
-                  <button type="submit" class="btn">Créer mon compte</button>
+                <div class="d-flex justify-content-center flex-row" style="gap: 2rem;">
+                    <button class="btn" type="submit">Créer mon compte</button>
+                    <a href="{{ path('app_login') }}">Déjà un compte ?</a>
                 </div>
             {{ form_end(registrationForm) }}
             </div>

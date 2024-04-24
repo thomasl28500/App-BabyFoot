@@ -60,11 +60,18 @@
             <div class="ml-auto">
               <nav class="site-navigation position-relative text-right" role="navigation">
                 <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                  <li class="active"><a href="{{path('app_home')}}" class="nav-link">Accueil</a></li>
+                  <li><a href="{{path('app_home')}}" class="nav-link">Accueil</a></li>
                   <li><a href="{{path('app_games')}}" class="nav-link">Matchs</a></li>
                   <li><a href="{{path('app_ranking')}}" class="nav-link">Classement</a></li>
                   <li><a href="blog.html" class="nav-link">Équipes</a></li>
                   <li><a href="contact.html" class="nav-link">Contact</a></li>
+                  {% if not app.user %}
+                    <li><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
+                  {% endif %}
+                  {% if app.user %}
+                    <li style="color: lightgreen;">{{ app.user.userIdentifier }}</li>
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                  {% endif %}
                 </ul>
               </nav>
 

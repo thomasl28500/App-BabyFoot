@@ -21,6 +21,27 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function findMostRecentMatch(): ? Game
+    { 
+        return $this->createQueryBuilder('m')
+            ->where('m.dateGame < :now') // Filtre pour obtenir les matchs avec une date de jeu future
+            ->setParameter('now', new \DateTime()) // Utilise la date actuelle comme référence
+            ->orderBy('m.dateGame', 'DESC') // Trie par date_game en ordre décroissant
+            ->setMaxResults(1) // Limite à un seul résultat (le plus récent)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findNextMatch(): ? Game
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.dateGame > :now') // Filtre pour obtenir les matchs avec une date de jeu future
+            ->setParameter('now', new \DateTime()) // Utilise la date actuelle comme référence
+            ->orderBy('m.dateGame', 'ASC') // Trie par date de jeu en ordre croissant
+            ->setMaxResults(1) // Limite à un seul résultat (le prochain match)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */

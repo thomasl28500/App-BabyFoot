@@ -30,6 +30,12 @@ class Team
     #[ORM\OneToMany(targetEntity: TeamComposition::class, mappedBy: 'idTeam')]
     private Collection $teamCompositions;
 
+    #[ORM\Column]
+    private ?int $victory = null;
+
+    #[ORM\Column]
+    private ?int $defeat = null;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -109,6 +115,30 @@ class Team
                 $teamComposition->setIdTeam(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVictory(): ?int
+    {
+        return $this->victory;
+    }
+
+    public function setVictory(int $victory): static
+    {
+        $this->victory = $victory;
+
+        return $this;
+    }
+
+    public function getDefeat(): ?int
+    {
+        return $this->defeat;
+    }
+
+    public function setDefeat(int $defeat): static
+    {
+        $this->defeat = $defeat;
 
         return $this;
     }

@@ -118,6 +118,58 @@ h1, h2, h3, h4, h5,
 .bg-black {
   background: #000; }
 
+
+.register_card h1 {
+  text-align: center;
+}
+
+.register_card form div:not(:has(input[type=checkbox])) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+  border: 1px solid white;
+}
+
+.register_card form div:has( > button ) {
+  border: 0 !important;
+}
+
+.register_card form div:not(:has(input[type=checkbox])) label {
+  position: absolute;
+  top: -0.9rem;
+  background-color: var(--dark);
+  left: 1rem;
+  padding: 0 0.5rem;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.register_card form div:has(input[type=checkbox]) {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.register_card form div:has(input[type=checkbox]) label {
+  margin-bottom: 0;
+  order: 1;
+}
+
+
+.register_card form div input {
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  background-color: var(--dark);
+  color: white;
+}
+
+.register_card form div input:focus-visible {
+  border-color: white;
+}
+
 .form-control {
   height: 43px;
   border-radius: 4px;
@@ -665,6 +717,15 @@ h1, h2, h3, h4, h5,
   font-weight: 800; }
   .more.light {
     color: #fff; }
+
+.register_card {
+  background-color: var(--dark);
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: -90px;
+  position: relative;
+  -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1); }
 
 .team-vs {
   background-color: var(--blue);

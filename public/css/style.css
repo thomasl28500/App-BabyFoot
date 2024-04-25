@@ -160,6 +160,13 @@ h1, h2, h3, h4, h5,
   font-weight: bold;
 }
 
+.register_card form div#team {
+  position: initial;
+  display: initial;
+  margin: 0;
+  border: 0;
+}
+
 .register_card form div:has(input[type=checkbox]) {
   gap: 1rem;
   display: flex;
@@ -1003,7 +1010,13 @@ h1, h2, h3, h4, h5,
       top: 0;
       left: 0;
       bottom: 0;
-      background: var(--green); }
+      background: var(--red); }
+
+.title-section .heading.green:before {
+  background: #8bc34a; }
+
+.title-section .heading.beige:before {
+  background: var(--beige); }
 
 .custom-table {
   margin-bottom: 0; }
@@ -1226,5 +1239,11 @@ h1, h2, h3, h4, h5,
   }
   to {
     transform: rotate(359deg);
+  }
+}
+
+@media (min-width: 992px) {
+  .imgLogout{
+    filter: invert(81%) sepia(100%) saturate(0%) hue-rotate(25deg) brightness(106%) contrast(104%);
   }
 }

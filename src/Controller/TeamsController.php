@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TeamRepository;
 
 class TeamsController extends AbstractController
@@ -14,6 +15,7 @@ class TeamsController extends AbstractController
     public function index(TeamRepository $TeamRepository): Response
     {
         $teamSinglePlayer = $TeamRepository->findTeamsWithSinglePlayer();
+        $findCompleteTeams = $TeamRepository->findCompleteTeams();
 
         $user = $this->getUser();
 
@@ -24,6 +26,7 @@ class TeamsController extends AbstractController
             return $this->render('teams/index.html.twig', [
                 'controller_name' => 'TeamsController',
                 'teamSinglePlayer' => $teamSinglePlayer,
+                'findCompleteTeams' => $findCompleteTeams,
                 'myTeams' => $myTeams,
             ]);
 
@@ -32,8 +35,10 @@ class TeamsController extends AbstractController
             return $this->render('teams/index.html.twig', [
                 'controller_name' => 'TeamsController',
                 'teamSinglePlayer' => $teamSinglePlayer,
+                'findCompleteTeams' => $findCompleteTeams,
             ]); 
 
         }
     }
+
 }

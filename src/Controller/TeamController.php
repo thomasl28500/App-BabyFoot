@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use App\Entity\TeamComposition;
+use App\Repository\PlayerRepository;
+use App\Entity\Player;
+
 #[Route('/team')]
 class TeamController extends AbstractController
 {
@@ -33,7 +37,17 @@ class TeamController extends AbstractController
             $entityManager->persist($team);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+            $user = $this->getUser();
+            $tmp = $entityManager->getRepository(Player::class)->findOneBy(["id"=> $user->getId()]);
+            // dd($tmp->findOneBy(["id"=>$user])->getId());
+
+            $teamComposition = new TeamComposition();
+            $teamComposition->setIdPlayer($tmp);
+            $teamComposition->setIdTeam($team->getId());
+            
+            $entityManager->persist($teamComposition);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_teams', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('team/new.html.twig', [

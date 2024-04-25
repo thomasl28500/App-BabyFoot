@@ -36,9 +36,9 @@ class TeamRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->select('t')
-            ->join('t.teamCompositions', 'tc')
+            ->leftJoin('t.teamCompositions', 'tc')
             ->groupBy('t.id, t.name')
-            ->having('COUNT(tc.idPlayer) = 1')
+            ->having('COUNT(tc.idPlayer) <= 1')
             ->getQuery()
             ->getResult();
     }
@@ -55,4 +55,16 @@ class TeamRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function findCompleteTeams(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->join('t.teamCompositions', 'tc')
+            ->groupBy('t.id, t.name')
+            ->having('COUNT(tc.idPlayer) = 2')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

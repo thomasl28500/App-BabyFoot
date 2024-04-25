@@ -42,6 +42,17 @@ class GameRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function historicalMatch(): array
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.dateGame <= :now') // Filtre pour obtenir les matchs jusqu'à la date actuelle
+            ->setParameter('now', new \DateTime()) // Utilise la date actuelle comme référence
+            ->orderBy('m.dateGame', 'DESC') // Trie par date de jeu en ordre décroissant
+            ->setMaxResults(3) // Limite à cinq résultats
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */

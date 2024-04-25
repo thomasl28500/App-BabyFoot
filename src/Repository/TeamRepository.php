@@ -21,6 +21,14 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function classementTeam(): array
+    {
+        // Utilisez le createQueryBuilder pour construire la requête
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.victory', 'DESC') // Trie les équipes par victoires en ordre décroissant
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Team[] Returns an array of Team objects
     //     */

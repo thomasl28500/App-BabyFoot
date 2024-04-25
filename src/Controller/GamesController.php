@@ -15,11 +15,13 @@ class GamesController extends AbstractController
     {
         $data = $gameRepository->findMostRecentMatch();
         $dataNext = $gameRepository->findNextMatch();
-        // dd($dataNext);
+        $lastFiveMatches = $gameRepository->historicalMatch();
+        // dd($lastFiveMatches);
         return $this->render('games/index.html.twig', [
             'controller_name' => 'GamesController',
             'data' => $data,
             'dataNext' => $dataNext,
+            'lastFiveMatches' => $lastFiveMatches,
         ]);
     }
 }

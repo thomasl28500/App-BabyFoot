@@ -63,8 +63,8 @@
                   <li><a href="{{path('app_home')}}" class="nav-link">Accueil</a></li>
                   <li><a href="{{path('app_games')}}" class="nav-link">Matchs</a></li>
                   <li><a href="{{path('app_ranking')}}" class="nav-link">Classement</a></li>
-                  <li><a href="blog.html" class="nav-link">Équipes</a></li>
-                  <li><a href="contact.html" class="nav-link">Contact</a></li>
+                  <li><a href="{{path('app_teams')}}" class="nav-link">Équipes</a></li>
+                  <li><a href="#" class="nav-link">Contact</a></li>
                   {% if not app.user %}
                     <li><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
                   {% endif %}

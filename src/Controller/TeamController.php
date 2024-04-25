@@ -42,8 +42,13 @@ class TeamController extends AbstractController
             // dd($tmp->findOneBy(["id"=>$user])->getId());
 
             $teamComposition = new TeamComposition();
-            $teamComposition->setIdPlayer($tmp);
-            $teamComposition->setIdTeam($team->getId());
+            // $teamComposition->setIdPlayer($tmp);
+            // $teamComposition->setIdTeam($team->getId());
+
+            $player = $entityManager->getRepository(Player::class)->find($user->getId());
+            $teamComposition->setIdPlayer($player);
+            $teamObject = $entityManager->getRepository(Team::class)->find($team->getId());
+            $teamComposition->setIdTeam($teamObject);
             
             $entityManager->persist($teamComposition);
             $entityManager->flush();

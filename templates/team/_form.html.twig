@@ -1,4 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="d-flex justify-content-center flex-row" style="gap: 2rem;">
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        <a href="{{ path('app_teams') }}" style="background-color: #dc3545;color: #fff">Annuler</a>
+    </div>
 {{ form_end(form) }}

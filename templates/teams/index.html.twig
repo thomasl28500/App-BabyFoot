@@ -42,8 +42,11 @@
 											<span class="score">{{ teamsUser.victory }}(V) -
 												{{ teamsUser.defeat }}(D)</span>
 										</div>
-                                        <button class="btn btn-danger" type="submit">Quitter l'équipe</button>
-            						</div>
+										<form method="POST" action="{{ path('app_team_edit', {'id': teamsUser.id}) }}">
+											<button class="btn" type="submit">Modifier l'équipe</button>
+										</form>
+										<button class="btn btn-danger" type="submit">Quitter l'équipe</button>
+									</div>
 								</div>
 							</div>
 						{% endfor %}
@@ -79,7 +82,9 @@
 									<span class="score">{{ teamsRecruits.victory }}(V) -
 										{{ teamsRecruits.defeat }}(D)</span>
 								</div>
-								<button class="btn btn-success">Rejoindre l'équipe</button>
+								{# <form method="POST" action="{{ path('app_join_team', {'id': teamsRecruits.id}) }}"> #}
+									<button class="btn btn-success">Rejoindre l'équipe</button>
+								{# </form> #}
 							</div>
 						</div>
 					</div>
@@ -118,4 +123,3 @@
 		</div>
 	</div>
 {% endblock %}
-

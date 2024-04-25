@@ -73,7 +73,7 @@ class TeamController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_teams', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('team/edit.html.twig', [

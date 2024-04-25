@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TeamRepository;
+use App\Entity\TeamComposition;
 
 class TeamsController extends AbstractController
 {
@@ -40,5 +41,4 @@ class TeamsController extends AbstractController
 
         }
     }
-
 }

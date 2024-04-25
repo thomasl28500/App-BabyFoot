@@ -11,10 +11,7 @@
 					<div class="d-flex register_card flex-column">
 						<div class="p-4">
 							<h1>Créer une équipe</h1>
-							{{ include('team/_form.html.twig') }}
-							<div class="d-flex justify-content-center flex-row" style="gap: 2rem;">
-								<a href="{{ path('app_teams') }}">back to list</a>
-							</div>
+							{{ include('team/_form.html.twig', {'button_label': 'Créer l\'équipe'}) }}
 						</div>
 					</div>
 				</div>

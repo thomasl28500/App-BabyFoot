@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Repository\TeamRepository;
+use App\Validator\DateMatch;
 
 class GameType extends AbstractType
 {
@@ -47,6 +48,9 @@ class GameType extends AbstractType
             ->add('dateGame', null, [
                 'widget' => 'single_text',
                 'label' => 'Date du Match',
+                'constraints' => [
+                    new DateMatch(),
+                ],
             ]);
 
         // EventListener pour les valeurs par défaut du formulaire

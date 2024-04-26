@@ -67,4 +67,37 @@ class TeamsController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
     }
+
+    #[Route('/team/quit/{id}', name: 'app_quit_team', methods: ['POST'])]
+    public function index3(int $id, EntityManagerInterface $entityManager): Response
+    {
+
+        $user = $this->getUser();
+
+        if ($user != null) {
+            $team = $entityManager->getRepository(Team::class)->find($id);
+
+            if ($team === null) {
+                return $this->redirectToRoute('app_teams'); // sécurité si quelqu'un essaye de quitter une équipe qui n'existe pas
+            }
+
+            $teamComposition = $entityManager->getRepository(TeamComposition::class)
+                ->findOneBy([
+                    'idPlayer' => $user,
+                    'idTeam' => $team
+                ]);
+
+            if ($teamComposition === null) {
+                return $this->redirectToRoute('app_teams'); // sécurité si quelqu'un essaye de quitter une équipe dont il ne fait pas partie
+            }
+
+            $entityManager->remove($teamComposition); // Supprime la ligne dans la BDD
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_teams');
+        }else{
+            $this->addFlash('error', 'Vous devez vous connecter pour effectuer cette action !');
+            return $this->redirectToRoute('app_login');
+        }
+    }
 }

@@ -45,7 +45,9 @@
 										<form method="POST" action="{{ path('app_team_edit', {'id': teamsUser.id}) }}">
 											<button class="btn" type="submit">Modifier l'équipe</button>
 										</form>
-										<button class="btn btn-danger" type="submit">Quitter l'équipe</button>
+										<form method="POST" action="{{ path('app_quit_team', {'id': teamsUser.id}) }}">
+											<button class="btn btn-danger" type="submit">Quitter l'équipe</button>
+										</form>
 									</div>
 								</div>
 							</div>

@@ -11,6 +11,13 @@
 					<div class="d-flex register_card flex-column">
 						<div class="p-4">
 							<h1>Créer une équipe</h1>
+							{% for type, messages in app.flashes %}
+								{% for message in messages %}
+									<div class="alert alert-danger" role="alert">
+										{{ message }}
+									</div>
+								{% endfor %}
+							{% endfor %}
 							{{ include('team/_form.html.twig', {'button_label': 'Créer l\'équipe'}) }}
 						</div>
 					</div>
@@ -18,4 +25,6 @@
 			</div>
 		</div>
 	</div>
+
+
 {% endblock %}

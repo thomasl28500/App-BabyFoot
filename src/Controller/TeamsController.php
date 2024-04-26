@@ -63,6 +63,7 @@ class TeamsController extends AbstractController
 
             return $this->redirectToRoute('app_teams');
         }else{
+            $this->addFlash('error', 'Vous devez vous connecter pour effectuer cette action !');
             return $this->redirectToRoute('app_login');
         }
     }

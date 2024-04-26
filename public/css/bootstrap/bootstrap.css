@@ -4128,9 +4128,9 @@ input[type="button"].btn-block {
     color: #523406; }
 
 .alert-danger {
-  color: #7e1e18;
-  background-color: #fcd8d5;
-  border-color: #fbc8c4; }
+  color: #ea868f;
+  background-color: #2c0b0e;
+  border-color: #842029; }
   .alert-danger hr {
     border-top-color: #f9b2ac; }
   .alert-danger .alert-link {

@@ -16,6 +16,13 @@
 
 
                 <h1 class="h3 mb-3 font-weight-normal">Page de Connexion</h1>
+                {% for type, messages in app.flashes %}
+                  {% for message in messages %}
+                    <div class="alert alert-danger" style="border: 0;" role="alert">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endfor %}
                 <div>
                     <label for="inputEmail">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>

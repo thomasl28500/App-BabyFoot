@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use App\Repository\TeamRepository;
+
 #[Route('/game')]
 class GameController extends AbstractController
 {
@@ -23,16 +25,23 @@ class GameController extends AbstractController
     }
 
     #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TeamRepository $teamRepository): Response
     {
         $user = $this->getUser();
 
         if (!$user) {
+            $this->addFlash('error', 'Vous devez vous connecter pour effectuer cette action !');
             return $this->redirectToRoute('app_login');
         }
 
+        $userTeams = $teamRepository->findTeamsByUser($user);
+        if (count($userTeams) === 0) {
+            $this->addFlash('error', 'Vous devez avoir au moins une équipe pour créer un match !');
+            return $this->redirectToRoute('app_team_new');
+        }
+
         $game = new Game();
-        $form = $this->createForm(GameType::class, $game);
+        $form = $this->createForm(GameType::class, $game, ['user' => $user]); // Création de la Form avec le User connecté en param
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

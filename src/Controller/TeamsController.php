@@ -23,6 +23,7 @@ class TeamsController extends AbstractController
         if ($user != null) {
 
             $myTeams = $TeamRepository->findTeamsByUser($user);
+            $teamSinglePlayer = $TeamRepository->findTeamsWithSinglePlayerConnected($user->getId());
 
             return $this->render('teams/index.html.twig', [
                 'controller_name' => 'TeamsController',

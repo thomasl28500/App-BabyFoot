@@ -43,6 +43,18 @@ class TeamRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findTeamsWithSinglePlayerConnected(int $userId): array
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->leftJoin('t.teamCompositions', 'tc')
+            ->groupBy('t.id, t.name')
+            ->having('COUNT(tc.idPlayer) = 0 OR (COUNT(tc.idPlayer) = 1 AND MAX(CASE WHEN tc.idPlayer = :userId THEN 1 ELSE 0 END) = 0)')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findTeamsByUser(Player $user): array
     {
         $query = $this->createQueryBuilder('t')

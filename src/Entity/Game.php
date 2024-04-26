@@ -32,6 +32,9 @@ class Game
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateGame = null;
 
+    #[ORM\Column]
+    private ?bool $isFinish = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Game
     public function setDateGame(\DateTimeInterface $dateGame): static
     {
         $this->dateGame = $dateGame;
+
+        return $this;
+    }
+
+    public function isFinish(): ?bool
+    {
+        return $this->isFinish;
+    }
+
+    public function setFinish(bool $isFinish): static
+    {
+        $this->isFinish = $isFinish;
 
         return $this;
     }

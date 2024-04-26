@@ -10,7 +10,9 @@
 				<div class="col-lg-5 ml-auto">
 					<h1 class="text-white">Les équipes de la CCI</h1>
 					<p>
-						<a href="#" class="btn btn-primary py-3 px-4 mr-3">Organiser un match</a>
+						{# <form method="POST" action="{{ path('app_join_team', {'id': teamsRecruits.id}) }}"> #}
+							<a href="#" class="btn btn-primary py-3 px-4 mr-3">Organiser un match</a>
+						{# </form> #}
 					</p>
 				</div>
 			</div>
@@ -83,9 +85,9 @@
 									<span class="score">{{ teamsRecruits.victory }}(V) -
 										{{ teamsRecruits.defeat }}(D)</span>
 								</div>
-								{# <form method="POST" action="{{ path('app_join_team', {'id': teamsRecruits.id}) }}"> #}
+								<form method="POST" action="{{ path('app_join_team', {'id': teamsRecruits.id}) }}">
 									<button class="btn btn-success">Rejoindre l'équipe</button>
-								{# </form> #}
+								</form>
 							</div>
 						</div>
 					</div>

@@ -24,7 +24,7 @@ class GameRepository extends ServiceEntityRepository
     public function findMostRecentMatch(): ? Game
     { 
         return $this->createQueryBuilder('m')
-            ->where('m.dateGame < :now')
+            ->where('m.dateGame < :now AND m.isFinish = true')
             ->setParameter('now', new \DateTime())
             ->orderBy('m.dateGame', 'DESC') // Trie par date en ordre décroissant
             ->setMaxResults(1) // Uun seul résultat (le plus récent)
@@ -46,10 +46,10 @@ class GameRepository extends ServiceEntityRepository
     public function historicalMatch(): array
     {
         return $this->createQueryBuilder('m')
-            ->where('m.dateGame <= :now') // Filtre pour obtenir les matchs jusqu'à la date actuelle
-            ->setParameter('now', new \DateTime()) // Utilise la date actuelle comme référence
+            ->where('m.dateGame <= :now AND m.isFinish = true') // Matchs jusqu'à date actuelle
+            ->setParameter('now', new \DateTime()) // date actuelle
             ->orderBy('m.dateGame', 'DESC') // Trie par date de jeu en ordre décroissant
-            ->setMaxResults(3) // Limite à cinq résultats
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }

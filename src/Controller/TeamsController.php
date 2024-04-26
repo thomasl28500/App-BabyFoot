@@ -6,9 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TeamRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Team;
 use App\Entity\TeamComposition;
+
 
 class TeamsController extends AbstractController
 {
@@ -40,6 +42,28 @@ class TeamsController extends AbstractController
                 'findCompleteTeams' => $findCompleteTeams,
             ]); 
 
+        }
+    }
+
+    #[Route('/team/join/{id}', name: 'app_join_team', methods: ['POST'])]
+    public function index2(int $id, EntityManagerInterface $entityManager): Response
+    {
+
+        $user = $this->getUser();
+
+        if ($user != null) {
+            $team = $entityManager->getRepository(Team::class)->find($id);
+
+            $teamComposition = new TeamComposition();
+            $teamComposition->setIdPlayer($user);
+            $teamComposition->setIdTeam($team);
+
+            $entityManager->persist($teamComposition);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_teams');
+        }else{
+            return $this->redirectToRoute('app_login');
         }
     }
 }

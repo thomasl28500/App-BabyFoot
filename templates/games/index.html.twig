@@ -24,8 +24,8 @@
 
       <div class="row">
         <div class="col-lg-12">
-          
           <div class="d-flex team-vs">
+            {% if data is not empty %}
             <span class="score">{{data.teamBlueScore}}-{{data.teamRedScore}}</span>
             <div class="team-1 w-50">
               <div class="team-details w-100 text-center">
@@ -47,6 +47,13 @@
                 </ul>
               </div>
             </div>
+            {% else %}
+						<span class="score" style="font-size: 1rem;">Il n'y a eu aucun match récemment...</span>
+            <div class="team-1 w-50">
+            </div>
+            <div class="team-2 w-50">
+            </div>
+					{% endif %}
           </div>
         </div>
       </div>
@@ -55,6 +62,7 @@
     <div class="site-section bg-dark">
       <div class="container">
         <div class="row">
+          {% if dataNext is not empty %}
           <div class="col-lg-6">
             <div class="widget-next-match" style="height: 100%;">
               <div class="widget-title">
@@ -77,7 +85,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="text-center widget-vs-contents mb-4">
                 <h4>Ligue des BabyFoots</h4>
                 <p class="mb-5">
@@ -89,6 +96,19 @@
               </div>
             </div>
           </div>
+          {% else %}
+            <div class="col-lg-6">
+            <div class="widget-next-match" style="height: 100%;">
+              <div class="widget-title">
+                <h3>Prochain Match</h3>
+              </div>
+              <div class="text-center d-flex justify-content-center align-items-center">
+                <h5>Il n'y a aucun match à venir...</h5>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% if lastFiveMatches is not empty %}
           <div class="col-lg-6">
             <div class="widget-histo-match">
               <div class="widget-title red">
@@ -116,6 +136,18 @@
             {% endfor %}
             </div>
           </div>
+          {% else %}
+          <div class="col-lg-6">
+            <div class="widget-next-match" style="height: 100%;">
+              <div class="widget-title red">
+                <h3>Historique des matchs</h3>
+              </div>
+              <div class="text-center d-flex justify-content-center align-items-center">
+                <h5>Aucun match n'a été joué...</h5>
+              </div>
+            </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div> <!-- .site-section -->

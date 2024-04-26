@@ -68,6 +68,7 @@
 				</div>
 			</div>
 			<div class="row no-gutters">
+			{% if teamSinglePlayer is not empty %}
 				{% for teamsRecruits in teamSinglePlayer %}
 					<div class="col-md-4">
 						<div class="widget-next-match">
@@ -89,6 +90,11 @@
 						</div>
 					</div>
 				{% endfor %}
+			{% else %}
+				<div class="no-teams">
+					<p>Aucune équipe ne recrute des joueurs...</p>
+				</div>
+			{% endif %}
 			</div>
 		</div>
 	</div>
@@ -101,6 +107,7 @@
 				</div>
 			</div>
 			<div class="row no-gutters">
+			{% if findCompleteTeams is not empty %}
 				{% for teamsComplete in findCompleteTeams %}
 					<div class="col-md-4">
 						<div class="widget-next-match">
@@ -119,6 +126,11 @@
 						</div>
 					</div>
 				{% endfor %}
+			{% else %}
+				<div class="no-teams">
+					<p>Aucune équipe créée...</p>
+				</div>
+			{% endif %}
 			</div>
 		</div>
 	</div>

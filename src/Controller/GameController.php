@@ -25,6 +25,12 @@ class GameController extends AbstractController
     #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $game = new Game();
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
@@ -33,7 +39,7 @@ class GameController extends AbstractController
             $entityManager->persist($game);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_games', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('game/new.html.twig', [

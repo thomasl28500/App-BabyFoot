@@ -6,6 +6,8 @@ use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+use App\Entity\Player;
+
 /**
  * @extends ServiceEntityRepository<Game>
  *
@@ -53,6 +55,45 @@ class GameRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findHistoryGamesByPlayer(Player $player): array
+    {
+        $query = $this->createQueryBuilder('g')
+            ->join('g.teamBlue', 'tb')
+            ->join('g.teamRed', 'tr')
+            ->join('tb.teamCompositions', 'tcb')
+            ->join('tr.teamCompositions', 'tcr')
+            ->where('(tcb.idPlayer = :playerId OR tcr.idPlayer = :playerId)')
+            ->andWhere('g.isFinish = 1')
+            ->setParameter('playerId', $player->getId())
+            ->orderBy('g.dateGame', 'DESC')
+            ->getQuery();
+    
+        return $query->getResult();
+    }
+
+    public function findInProgressGames(Player $player): array
+    {
+        $query = $this->createQueryBuilder('g')
+            ->select('g, tBlue, tRed')
+            ->join('g.teamBlue', 'tBlue')
+            ->join('g.teamRed', 'tRed')
+            ->join('tBlue.teamCompositions', 'tcBlue')
+            ->join('tRed.teamCompositions', 'tcRed')
+            ->where('tcBlue.idPlayer = :playerId OR tcRed.idPlayer = :playerId') // Vérifie si le joueur fait partie d'une des équipes
+            ->andWhere('g.isFinish = false')
+            ->setParameter('playerId', $player->getId())
+            ->orderBy('g.dateGame', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    //     $query->setParameter('playerId', $playerId);
+
+    //     return $query->getResult();
+    // }
+
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */

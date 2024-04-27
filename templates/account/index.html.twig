@@ -17,7 +17,7 @@
     <div class="site-section bg-dark">
       <div class="container">
         <div class="row">
-            <div class="tab" role="tabpanel">
+            <div class="tab" role="tabpanel" style="width: 100%;">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Mes informations</a></li>
@@ -25,20 +25,95 @@
                     <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">Historique de mes matchs</a></li>
                 </ul>
                 <!-- Tab panes -->
+                {% if player is not empty %}
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane fade in active show" id="Section1">
-                        <h3>Section 1</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div>
+                            <label for="name">Mon nom</label>
+                            <input type="text" id="name" name="name" placeholder="{{player.lastName}}" disabled>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div>
+                            <label for="firstName">Mon prénom</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="{{player.firstName}}" disabled>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div>
+                            <label for="nickName">Pseudo</label>
+                            <input type="text" id="nickName" name="nickName" placeholder="{{player.nickName}}" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div>
+                            <label for="mail">Mon adresse mail</label>
+                            <input type="mail" id="mail" name="mail" placeholder="{{player.email}}" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="d-flex justify-content-center">
+                            <a href="{{ path('app_player_edit', {'id': player.id}) }}" class="btn btn-primary py-3 px-4 mr-3">Modifier mes informations</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section2">
-                        <h3>Section 2</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">ÉQUIPE BLEUE</th>
+                            <th scope="col">ÉQUIPE ROUGE</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">SCORE</th>
+                            <th scope="col">ACTION</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for game in InProgressGames %}
+                              <tr>
+                                  <td>{{ game.teamBlue.name }}</td>
+                                  <td>{{ game.teamRed.name }}</td>
+                                  <td>{{ game.dateGame|date('Y-m-d') }}</td>
+                                  <td>{{ game.teamBlueScore }} - {{ game.teamRedScore }}</td>
+                                  <td>
+                                      <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Éditer le match</a>
+                                  </td>
+                              </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>                    
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section3">
-                        <h3>Section 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">ÉQUIPE BLEUE</th>
+                            <th scope="col">ÉQUIPE ROUGE</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">SCORE</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for match in historyGames %}
+                              <tr>
+                                  <td>{{ match.teamBlue.name }}</td>
+                                  <td>{{ match.teamRed.name }}</td>
+                                  <td>{{ match.dateGame|date('d/m/Y') }}</td>
+                                  <td>{{ match.teamBlueScore }} - {{ match.teamRedScore }}</td>
+                              </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>  
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
       </div>

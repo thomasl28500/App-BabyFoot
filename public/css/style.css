@@ -1283,19 +1283,6 @@ a:hover,a:focus{
   background: var(--red);
   border: none;
 }
-.tab .nav-tabs li a:before{
-  content: '';
-  background: #22232c;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transform: scale(0.5);
-  position: absolute;
-  left: 50%;
-  top: 0;
-  z-index: -1;
-  transition: opacity 0.4s ease 0s,left 0.3s ease 0s,transform 0.4s ease 0.2s;
-}
 .tab .nav-tabs li.active a:before,
 .tab .nav-tabs li a:hover:before{
   opacity: 1;
@@ -1325,4 +1312,31 @@ a:hover,a:focus{
   .tab .nav-tabs li{ width: 100%; }
   .tab .nav-tabs li a{ margin: 0 0 10px; }
   .tab .tab-content h3{ font-size: 18px; }
+}
+
+.tab .tab-content div.row div[class*=col-md] div:not(:has(a)) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+  border: 1px solid white;
+}
+
+.tab .tab-content div.row div[class*=col-md] div:not(:has(a)) label {
+  position: absolute;
+  background-color: #22232c;
+  top: -0.9rem;
+  left: 1rem;
+  padding: 0 0.5rem;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.tab .tab-content div.row div[class*=col-md] div:not(:has(a)) input {
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  background-color: #22232c;
+  color: white;
 }

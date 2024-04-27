@@ -160,7 +160,7 @@ h1, h2, h3, h4, h5,
   font-weight: bold;
 }
 
-.register_card form div#team, .register_card form div#game {
+.register_card form div#team, .register_card form div#game, .register_card form div#game_edit {
   position: initial;
   display: initial;
   margin: 0;

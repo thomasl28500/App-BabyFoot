@@ -13,12 +13,26 @@ class GameEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        $game = $builder->getData();
+
+        $teamBlueName = $game->getTeamBlue() ? $game->getTeamBlue()->getName() : 'Équipe bleue';
+        $teamRedName = $game->getTeamRed() ? $game->getTeamRed()->getName() : 'Équipe rouge';
+
         $builder
             ->add('teamBlueScore', IntegerType::class, [
-                'label' => 'Score de l\'équipe bleue',
+                'label' => sprintf('Score de l\'équipe %s', $teamBlueName),
+                'attr' => [
+                    'min' => -10,
+                    'max' => 10,
+                ],
             ])
             ->add('teamRedScore', IntegerType::class, [
-                'label' => 'Score de l\'équipe rouge',
+                'label' => sprintf('Score de l\'équipe %s', $teamRedName),
+                'attr' => [
+                    'min' => -10,
+                    'max' => 10,
+                ],
             ])
             ->add('isFinish', ChoiceType::class, [
                 'choices' => [

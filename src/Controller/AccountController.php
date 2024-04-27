@@ -80,6 +80,22 @@ class AccountController extends AbstractController
 
         // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Calculer l'équipe gagnante en fonction des scores
+            if ($game->isFinish()) {
+                $teamBlueScore = $game->getTeamBlueScore();
+                $teamRedScore = $game->getTeamRedScore();
+
+                if ($teamBlueScore > $teamRedScore) {
+                    // L'équipe bleue a le plus grand score
+                    $game->setTeamWin($game->getTeamBlue());
+                } elseif ($teamRedScore > $teamBlueScore) {
+                    // L'équipe rouge a le plus grand score
+                    $game->setTeamWin($game->getTeamRed());
+                } else {
+                    // Les deux équipes ont le même score, match nul
+                    $game->setTeamWin(null);
+                }
+            }
             // Enregistrez les modifications du match
             $entityManager->persist($game);
             $entityManager->flush();

@@ -88,15 +88,22 @@ class AccountController extends AbstractController
                 if ($teamBlueScore > $teamRedScore) {
                     // L'équipe bleue a le plus grand score
                     $game->setTeamWin($game->getTeamBlue());
+                    // Augmente la victoire de l'équipe bleue et la défaite de l'équipe rouge
+                    $game->getTeamBlue()->setVictory($game->getTeamBlue()->getVictory() + 1);
+                    $game->getTeamRed()->setDefeat($game->getTeamRed()->getDefeat() + 1);
                 } elseif ($teamRedScore > $teamBlueScore) {
                     // L'équipe rouge a le plus grand score
                     $game->setTeamWin($game->getTeamRed());
+                    // Augmente la victoire de l'équipe rouge et la défaite de l'équipe bleue
+                    $game->getTeamRed()->setVictory($game->getTeamRed()->getVictory() + 1);
+                    $game->getTeamBlue()->setDefeat($game->getTeamBlue()->getDefeat() + 1);
                 } else {
                     // Les deux équipes ont le même score, match nul
                     $game->setTeamWin(null);
                 }
             }
-            // Enregistrez les modifications du match
+
+            // Enregistrez les modifications du match et des équipes
             $entityManager->persist($game);
             $entityManager->flush();
 

@@ -82,13 +82,22 @@ class TeamController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        
+
+        $isMemberOfTeam = $entityManager->getRepository(TeamComposition::class)
+            ->findOneBy([
+                'idTeam' => $team,
+                'idPlayer' => $user,
+            ]);
+
+        if (!$isMemberOfTeam) {
+            return $this->redirectToRoute('app_teams');
+        }
+
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_teams', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -97,6 +106,7 @@ class TeamController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_team_delete', methods: ['POST'])]
     public function delete(Request $request, Team $team, EntityManagerInterface $entityManager): Response

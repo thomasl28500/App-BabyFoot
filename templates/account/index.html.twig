@@ -74,7 +74,7 @@
                                   <td>{{ game.teamBlue.name }}</td>
                                   <td>{{ game.teamRed.name }}</td>
                                   <td>{{ game.dateGame|date('Y-m-d') }}</td>
-                                  <td>{{ game.teamBlueScore }} - {{ game.teamRedScore }}</td>
+                                  <td>({{ game.teamBlueScore }}) - ({{ game.teamRedScore }})</td>
                                   <td>
                                       <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Finaliser le match</a>
                                   </td>
@@ -99,7 +99,7 @@
                                   <td>{{ match.teamBlue.name }}</td>
                                   <td>{{ match.teamRed.name }}</td>
                                   <td>{{ match.dateGame|date('d/m/Y') }}</td>
-                                  <td>{{ match.teamBlueScore }} - {{ match.teamRedScore }}</td>
+                                  <td>({{ match.teamBlueScore }}) - ({{ match.teamRedScore }})</td>
                               </tr>
                           {% endfor %}
                         </tbody>

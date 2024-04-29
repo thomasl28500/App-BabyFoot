@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Game;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class GameEditType extends AbstractType
 {
@@ -33,14 +35,21 @@ class GameEditType extends AbstractType
                     'min' => -10,
                     'max' => 10,
                 ],
-            ])
-            ->add('isFinish', ChoiceType::class, [
-                'choices' => [
-                    'Terminé' => true,
-                    'En cours' => false,
-                ],
-                'label' => 'Statut du match',
             ]);
+            // ->add('isFinish', ChoiceType::class, [
+            //     'choices' => [
+            //         'En cours' => false,
+            //         'Terminé' => true,
+            //     ],
+            //     'label' => 'Statut du match',
+            // ]);
+
+            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                $game = $event->getData();
+                if ($game instanceof Game) {
+                    $game->setFinish(1);
+                }
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

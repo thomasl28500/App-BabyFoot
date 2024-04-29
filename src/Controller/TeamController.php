@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Entity\Player;
 use App\Form\TeamType;
+use App\Entity\TeamComposition;
 use App\Repository\TeamRepository;
+use App\Repository\PlayerRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-use App\Entity\TeamComposition;
-use App\Repository\PlayerRepository;
-use App\Entity\Player;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/team')]
 class TeamController extends AbstractController
@@ -77,6 +77,12 @@ class TeamController extends AbstractController
     #[Route('/{id}/edit', name: 'app_team_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Team $team, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
 

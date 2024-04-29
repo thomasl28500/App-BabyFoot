@@ -76,7 +76,7 @@
                                   <td>{{ game.dateGame|date('Y-m-d') }}</td>
                                   <td>{{ game.teamBlueScore }} - {{ game.teamRedScore }}</td>
                                   <td>
-                                      <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Éditer le match</a>
+                                      <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Finaliser le match</a>
                                   </td>
                               </tr>
                           {% endfor %}

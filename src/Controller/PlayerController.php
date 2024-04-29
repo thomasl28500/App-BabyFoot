@@ -64,7 +64,7 @@ class PlayerController extends AbstractController
 
         return $this->render('player/edit.html.twig', [
             'player' => $player,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

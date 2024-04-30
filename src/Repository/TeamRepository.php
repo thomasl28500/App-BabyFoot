@@ -43,6 +43,26 @@ class TeamRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function StatPlayer(int $userId): ? array
+    {
+        $query = $this->createQueryBuilder('t')
+        ->select('p.id, SUM(t.victory) as nbVictoire, SUM(t.defeat) as nbDefaite, (SUM(t.victory) / SUM(t.defeat)) as ratio')
+        ->join('t.teamCompositions', 'tc')
+        ->join('tc.idPlayer', 'p')
+        ->where('p.id = :userId')
+        ->groupBy('p.id')
+        ->setParameter('userId', $userId)
+        ->getQuery();
+
+        $result = $query->getOneOrNullResult();
+
+        if ($result) {
+            $result['ratio'] = round($result['nbVictoire'] / $result['nbDefaite'], 2);
+        }
+
+        return $result;
+    }
+
     public function findTeamsWithSinglePlayerConnected(int $userId): array
     {
         return $this->createQueryBuilder('t')

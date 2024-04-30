@@ -14,13 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/player')]
 class PlayerController extends AbstractController
 {
-    #[Route('/', name: 'app_player_index', methods: ['GET'])]
-    public function index(PlayerRepository $playerRepository): Response
-    {
-        return $this->render('player/index.html.twig', [
-            'players' => $playerRepository->findAll(),
-        ]);
-    }
+    // #[Route('/', name: 'app_player_index', methods: ['GET'])]
+    // public function index(PlayerRepository $playerRepository): Response
+    // {
+    //     return $this->render('player/index.html.twig', [
+    //         'players' => $playerRepository->findAll(),
+    //     ]);
+    // }
 
     #[Route('/new', name: 'app_player_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -42,40 +42,40 @@ class PlayerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_player_show', methods: ['GET'])]
-    public function show(Player $player): Response
-    {
-        return $this->render('player/show.html.twig', [
-            'player' => $player,
-        ]);
-    }
+    // #[Route('/{id}', name: 'app_player_show', methods: ['GET'])]
+    // public function show(Player $player): Response
+    // {
+    //     return $this->render('player/show.html.twig', [
+    //         'player' => $player,
+    //     ]);
+    // }
 
-    #[Route('/{id}/edit', name: 'app_player_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Player $player, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(PlayerType::class, $player);
-        $form->handleRequest($request);
+    // #[Route('/{id}/edit', name: 'app_player_edit', methods: ['GET', 'POST'])]
+    // public function edit(Request $request, Player $player, EntityManagerInterface $entityManager): Response
+    // {
+    //     $form = $this->createForm(PlayerType::class, $player);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager->flush();
 
-            return $this->redirectToRoute('app_player_index', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('app_player_index', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->render('player/edit.html.twig', [
-            'player' => $player,
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('player/edit.html.twig', [
+    //         'player' => $player,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
-    #[Route('/{id}', name: 'app_player_delete', methods: ['POST'])]
-    public function delete(Request $request, Player $player, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$player->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($player);
-            $entityManager->flush();
-        }
+    // #[Route('/{id}', name: 'app_player_delete', methods: ['POST'])]
+    // public function delete(Request $request, Player $player, EntityManagerInterface $entityManager): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$player->getId(), $request->getPayload()->get('_token'))) {
+    //         $entityManager->remove($player);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('app_player_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_player_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

@@ -18,13 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/team')]
 class TeamController extends AbstractController
 {
-    #[Route('/', name: 'app_team_index', methods: ['GET'])]
-    public function index(TeamRepository $teamRepository): Response
-    {
-        return $this->render('team/index.html.twig', [
-            'teams' => $teamRepository->findAll(),
-        ]);
-    }
+    // #[Route('/', name: 'app_team_index', methods: ['GET'])]
+    // public function index(TeamRepository $teamRepository): Response
+    // {
+    //     return $this->render('team/index.html.twig', [
+    //         'teams' => $teamRepository->findAll(),
+    //     ]);
+    // }
 
     #[Route('/new', name: 'app_team_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -66,13 +66,13 @@ class TeamController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_team_show', methods: ['GET'])]
-    public function show(Team $team): Response
-    {
-        return $this->render('team/show.html.twig', [
-            'team' => $team,
-        ]);
-    }
+    // #[Route('/{id}', name: 'app_team_show', methods: ['GET'])]
+    // public function show(Team $team): Response
+    // {
+    //     return $this->render('team/show.html.twig', [
+    //         'team' => $team,
+    //     ]);
+    // }
 
     #[Route('/{id}/edit', name: 'app_team_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Team $team, EntityManagerInterface $entityManager): Response
@@ -108,14 +108,14 @@ class TeamController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_team_delete', methods: ['POST'])]
-    public function delete(Request $request, Team $team, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($team);
-            $entityManager->flush();
-        }
+    // #[Route('/{id}', name: 'app_team_delete', methods: ['POST'])]
+    // public function delete(Request $request, Team $team, EntityManagerInterface $entityManager): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->getPayload()->get('_token'))) {
+    //         $entityManager->remove($team);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

@@ -109,6 +109,41 @@
                 {% endif %}
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="tab" role="tabpanel" style="width: 100%;">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Section4" aria-controls="home" role="tab" data-toggle="tab">Statistiques</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content tabs">
+                    <div role="tabpanel" class="tab-pane fade in active show" id="Section4">
+                      <div class="row">
+                      {% if statPlayer is not empty %}
+                        <div class="col-md-4">
+                          <div class="stat">
+                            <p class="value">{{ statPlayer.nbVictoire }}</p>
+                            <p class="label">Victoires</p>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="stat">
+                            <p class="value">{{ statPlayer.nbDefaite }}</p>
+                            <p class="label">Défaites</p>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="stat">
+                            <p class="value">{{ statPlayer.ratio }}</p>
+                            <p class="label">Ratio v/d</p>
+                          </div>
+                        </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </div> <!-- .site-section -->
 

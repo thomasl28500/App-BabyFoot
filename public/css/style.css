@@ -801,7 +801,7 @@ h1, h2, h3, h4, h5,
       transform: skew(-15deg); }
 
 .latest-news {
-  padding: 100px 0; }
+  padding: 50px 0; }
   .latest-news .post-entry {
     position: relative;
     overflow: hidden; }
@@ -1021,7 +1021,7 @@ h1, h2, h3, h4, h5,
 .custom-table {
   margin-bottom: 0; }
   .custom-table thead tr th {
-    background: var(--red);
+    background: var(--blue);
     color: #fff;
     border: none; }
   .custom-table tbody tr td {
@@ -1351,6 +1351,7 @@ a:hover,a:focus{
   margin: 0 4rem;
   background-color: var(--dark);
   gap: 1rem;
+  border-bottom: 2px solid var(--red);
 }
 
 .tab .tab-content div.row div[class*=col-md] div.stat p {

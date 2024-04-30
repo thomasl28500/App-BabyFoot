@@ -17,7 +17,7 @@
     </div>
     
     <div class="container">
-      <div class="row">
+      <div class="row" style="padding-bottom: 3rem;">
         <div class="col-lg-12">
           <div class="d-flex team-vs">
             <div style="width: 100%;">
@@ -31,14 +31,14 @@
                     <th>PTS</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style="background-color: #22232c;">
                 {% if data is not empty %}
                 {% for team in data %}
                   <tr>
                     <td>{{ loop.index }}</td>
                     <td><strong class="text-white">{{ team.name }}</strong></td>
-                    <td>{{ team.victory }}</td>
-                    <td>{{ team.defeat }}</td>
+                    <td style="color: lightgreen;">{{ team.victory }}</td>
+                    <td style="color: var(--red);">{{ team.defeat }}</td>
                     <td>{{ team.victory * 3 }}</td>
                   </tr>
                 {% endfor %}

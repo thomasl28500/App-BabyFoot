@@ -69,17 +69,23 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for game in InProgressGames %}
-                              <tr>
-                                  <td>{{ game.teamBlue.name }}</td>
-                                  <td>{{ game.teamRed.name }}</td>
-                                  <td>{{ game.dateGame|date('Y-m-d') }}</td>
-                                  <td>({{ game.teamBlueScore }}) - ({{ game.teamRedScore }})</td>
-                                  <td>
-                                      <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Finaliser le match</a>
-                                  </td>
-                              </tr>
-                          {% endfor %}
+                        	{% if InProgressGames is not empty %}
+                            {% for game in InProgressGames %}
+                                <tr>
+                                    <td>{{ game.teamBlue.name }}</td>
+                                    <td>{{ game.teamRed.name }}</td>
+                                    <td>{{ game.dateGame|date('Y-m-d') }}</td>
+                                    <td>({{ game.teamBlueScore }}) - ({{ game.teamRedScore }})</td>
+                                    <td>
+                                        <a href="{{path('account_game_edit', {'id': game.id}) }}" class="btn btn-primary py-1 px-2 mr-3" style="margin-left: 1rem;">Finaliser le match</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          {% else %}
+                            <tr>
+                              <td colspan="5">Vous avez aucun match en cours ...</td>
+                            </tr>
+                          {% endif %}
                         </tbody>
                       </table>                    
                     </div>
@@ -94,6 +100,7 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% if historyGames is not empty %}
                             {% for match in historyGames %}
                               <tr>
                                   <td>{{ match.teamBlue.name }}</td>
@@ -101,7 +108,12 @@
                                   <td>{{ match.dateGame|date('d/m/Y') }}</td>
                                   <td>({{ match.teamBlueScore }}) - ({{ match.teamRedScore }})</td>
                               </tr>
-                          {% endfor %}
+                            {% endfor %}
+                          {% else %}
+                            <tr>
+                              <td colspan="5">Vous avez joué aucun match ...</td>
+                            </tr>
+                          {% endif %}
                         </tbody>
                       </table>  
                     </div>
@@ -138,6 +150,25 @@
                             <p class="label">Ratio v/d</p>
                           </div>
                         </div>
+                        {% else %}
+                          <div class="col-md-4">
+                            <div class="stat">
+                              <p class="value">0</p>
+                              <p class="label">Victoires</p>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="stat">
+                              <p class="value">0</p>
+                              <p class="label">Défaites</p>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="stat">
+                              <p class="value">0</p>
+                              <p class="label">Ratio v/d</p>
+                            </div>
+                          </div>
                         {% endif %}
                       </div>
                     </div>
